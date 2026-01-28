@@ -10,9 +10,9 @@ if(isset($_POST['simpan'])) {
     $simpan =mysqli_query($koneksi, $query);
     
     if($simpan) {
-        echo "<script>alert('Data Berhasil Disimpan'); window.location.href = 'form-siswa.php';</script>";
+        echo "<script>alert('Data Berhasil Disimpan'); window.location.href = 'form-kategori.php';</script>";
     } else {
-        echo "<script>alert('Data Gagal Disimpan'); window.location.href = 'form-siswa.php';</script>";
+        echo "<script>alert('Data Gagal Disimpan'); window.location.href = 'form-kategori.php';</script>";
     }
 } 
 ?>

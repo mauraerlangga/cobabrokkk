@@ -1,4 +1,6 @@
 <?php
 $koneksi = mysqli_connect("localhost", "root", "", "ujikom_maura");
 
-mysqli_query($koneksi, "INSERT INTO kategori VALUES(NULL, 'Sarana Kelas')");
+if (!$koneksi) {
+    die("Koneksi gagal: " . mysqli_connect_error());
+}

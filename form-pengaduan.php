@@ -19,7 +19,12 @@
             <div>
                 <label>Kategori</label>
                 <select name="kategori" required>
-                <option value="1">Sarana Kelas</option>
+                <option value="0">---Pilih Kategori---</option>
+                <option value="1">Sarana Lingkungan</option>
+                <option value="2">Sarana Kelas</option>
+                <option value="3">Sarana Lab</option>
+                <option value="4">Prasarana</option>
+                <option value="5">Sarana Ekstrakulikuler</option>
                 </select><br><br>
             </div>
             <div>

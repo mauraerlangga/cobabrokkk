@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Kategori</title>
 </head>
 <body>
-    <h2>Tambah Data Siswa</h2>
+    <h2>Tambah Data Kategori</h2>
     <form action="proses-tambah-kategori.php" method="POST">
 
         <label for="kategori">Kategori Baru</label>

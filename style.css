@@ -5,3 +5,53 @@
     background: white;
     border: 1px solid #c4c4c4;
 }
+
+/* 1. Mengatur agar body memenuhi layar dan kontennya di tengah */
+body {
+    font-family: sans-serif; /* Font standar */
+    background-color: #AABFAC; /* Warna background luar abu-abu muda */
+    display: flex;            /* Mengaktifkan Flexbox */
+    justify-content: center;  /* Posisi Horizontal di Tengah */
+    align-items: center;      /* Posisi Vertikal di Tengah */
+    height: 100vh;            /* Tinggi layar penuh */
+    margin: 0;                /* Hilangkan margin default browser */
+}
+
+    /* 2. Mengatur kotak login (wrap-barlog) */
+.wrap-barlog {
+    background-color: white;       /* Warna putih untuk kotak */
+    padding: 40px;                /* Jarak dalam kotak */
+    border-radius: 10px;          /* Sudut melengkung */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Efek bayangan agar elegan */
+    text-align: center;           /* Semua teks dan form di dalam kotak jadi tengah */
+    width: 300px;                 /* Lebar kotak tetap */
+}
+
+    /* 3. Mengatur Input (Username & Password) */
+input {
+    width: 90%;                   /* Lebar input mengikuti kotak */
+    padding: 10px;                /* Jarak teks dalam input */
+    margin-bottom: 15px;          /* Jarak bawah antar input */
+    border: 1px solid #ccc;       /* Garis pinggir abu-abu */
+    border-radius: 5px;           /* Sudut melengkung input */
+    box-sizing: border-box;       /* Agar padding tidak merusak lebar */
+    display: block;               /* Agar input turun ke bawah (blok) */
+    margin-left: auto;            /* Posisi input di tengah */
+    margin-right: auto;           /* Posisi input di tengah */
+}
+
+    /* 4. Mengatur Tombol Login */
+button {
+    width: 100%;                  /* Lebar tombol penuh */
+    padding: 10px;
+    background-color: #4F6356   ;     /* Warna biru */
+    color: white;                 /* Teks putih */
+    border: none;                 /* Hilangkan garis pinggir tombol */
+    border-radius: 5px;
+    cursor: pointer;              /* Kursor berubah jadi tangan saat di-hover */
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #b2ceb3;     /* Warna biru lebih gelap saat disentuh */
+}

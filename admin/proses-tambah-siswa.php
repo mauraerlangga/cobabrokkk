@@ -2,15 +2,19 @@
 include '../koneksi.php';
 
 if(isset($_POST['simpan'])) {
-    //1. amnil data dari form
-    $nis = $_POST['nis'];
+    //1. ambil data dari form
+    $username = $_POST['username'];
     $nama = $_POST['nama'];
     $kelas = $_POST['kelas'];
     $password = $_POST['password'];
 
-    $query = "INSERT INTO siswa (nis, nama, kelas, password) VALUES ('$nis', '$nama', '$kelas', '$password')";
+    // 2. Tambahkan baris ini: Set role otomatis sebagai 'siswa'
+    $role = 'siswa';
 
-    $simpan =mysqli_query($koneksi, $query);
+    // 3. Ubah Query: Tambahkan kolom 'role' di bagian kiri, dan '$role' di bagian kanan
+    $query = "INSERT INTO user (username, nama, kelas, password, role) VALUES ('$username', '$nama', '$kelas', '$password', '$role')";
+
+    $simpan = mysqli_query($koneksi, $query);
     
     if($simpan) {
         echo "<script>alert('Data Berhasil Disimpan'); window.location.href = 'form-siswa.php';</script>";

@@ -1,38 +1,46 @@
 <?php
+// 1. Mulai session di baris paling pertama
+session_start();
+
+// Cek apakah user sudah login (apakah session id ada)
+if (!isset($_SESSION['id'])) {
+    die("Error: Anda belum login. Session tidak ditemukan.");
+}
+
+// 2. Include koneksi database
+include 'koneksi.php';
 
 echo "<h1>Proses Pengaduan</h1>";
-echo "<hr>"; // Garis pemisah
+echo "<hr>"; 
 
+// 3. Ambil ID User dari Session (JANGAN ambil dari POST untuk keamanan)
+ $id_user = $_SESSION['id'];
 
-session_start();
-    $nis = $_SESSION['nis'];
-$query = mysqli_query($koneksi, "SELECT * FROM `input_aspirasi` WHERE nis= '$nis'");
+// 4. Mengambil data dari form
+// Kita cek apakah data terkirim menggunakan isset() agar tidak muncul warning
+ $kategori = isset($_POST['kategori']) ? $_POST['kategori'] : '';
+ $keterangan = isset($_POST['keterangan']) ? $_POST['keterangan'] : '';
+ $lokasi = isset($_POST['lokasi']) ? $_POST['lokasi'] : '';
 
-// Mengambil data dari form (lebih baik dipisah agar variabel siap digunakan)
- $nis = $_POST['nis']; 
- $kelas = $_POST['kelas'];
- $kategori = $_POST['kategori'];
- $keterangan = $_POST['keterangan'];
- $lokasi = $_POST['lokasi'];
-
-// Menampilkan data dengan menambahkan "<br>" untuk ganti baris
-// dan teks label agar jelas datanya apa
-echo "NIS: " . $nis . "<br>"; 
-echo "Kelas: " . $kelas . "<br>";
+// Menampilkan data (Debugging)
+echo "Id User (Session): " . $id_user . "<br>"; 
 echo "Kategori: " . $kategori . "<br>";
 echo "Keterangan: " . $keterangan . "<br>";
 echo "Lokasi: " . $lokasi . "<br>";
 
-// Koneksi ke database
- $koneksi = mysqli_connect("localhost", "root", "", "ujikom_maura");
+// Validasi input kategori
+if (empty($kategori)) {
+    die("<br><b>Error:</b> Kategori belum dipilih.");
+}
 
-// Query simpan data
-// (Perhatikan: $kelas diambil tapi tidak dimasukkan ke query insert di bawah)
- $query = "INSERT INTO `input_aspirasi`( `nis`, `lokasi`, `keterangan`, `id_kategori`) 
-          VALUES ('$nis','$lokasi','$keterangan','$kategori')";
+// 5. Query simpan data
+// Hapus baris mysqli_connect yang kedua karena sudah include koneksi.php di atas
+// Pastikan urutan kolom sesuai: id_kategori, iduser, lokasi, keterangan
+ $query = "INSERT INTO `input-aspirasi`(`id_kategori`, `iduser`, `lokasi`, `keterangan`) 
+        VALUES ('$kategori', '$id_user', '$lokasi', '$keterangan')";
 
 if(mysqli_query($koneksi, $query)){
-    echo "<br><b>Data berhasil disimpan!</b>";
+    echo "<script>alert('Data berhasil disimpan!'); window.location.href='siswa.php';</script>";
 } else {
     echo "<br><b>Gagal menyimpan data: </b>" . mysqli_error($koneksi);
 }

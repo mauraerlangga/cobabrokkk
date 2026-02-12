@@ -19,8 +19,6 @@ if (!isset($_SESSION['id']) || $_SESSION['role'] != 'siswa') {
     <title>Halaman Siswa</title>
     <!-- CSS DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css">
-    <!-- Jika Anda memiliki style.css terpisah dari langkah sebelumnya, aktifkan baris di bawah ini: -->
-    <!-- <link rel="stylesheet" href="style.css"> -->
     
     <style>
         /* 1. Pengaturan Background Halaman (Hijau Sage Muted) */
@@ -67,12 +65,12 @@ if (!isset($_SESSION['id']) || $_SESSION['role'] != 'siswa') {
             font-size: 14px; 
         }
 
-        /* 5. Tombol (Mempertahankan warna dari kode sebelumnya) */
+        /* 5. Tombol */
         .btn { 
             padding: 8px 16px; 
             text-decoration: none; 
             color: white;
-            border-radius: 6px; /* Sedikit lebih tumpul */
+            border-radius: 6px; 
             font-size: 13px; 
             display: inline-block;
             transition: opacity 0.3s;
@@ -83,15 +81,15 @@ if (!isset($_SESSION['id']) || $_SESSION['role'] != 'siswa') {
         }
 
         .btn-primary { 
-            background-color: #4F6356; /* Sage Dark */
-        }
-
-        .btn-danger { 
-            background-color: #C26A6A; /* Muted Red */
+            background-color: #4F6356; /* Sage Dark (Buat Laporan) */
         }
 
         .btn-info { 
-            background-color: #5F7A76; /* Muted Blue/Green */
+            background-color: #5F7A76; /* Muted Blue-Green (Ganti Password) */
+        }
+
+        .btn-danger { 
+            background-color: #C26A6A; /* Muted Red (Logout) */
         }
         
         /* 6. Badge Status */
@@ -142,13 +140,15 @@ if (!isset($_SESSION['id']) || $_SESSION['role'] != 'siswa') {
 </head>
 <body>
 
-    <!-- CONTAINER PUTIH UTAMA: Semua elemen dibungkus di sini -->
+    <!-- CONTAINER PUTIH UTAMA -->
     <div class="main-container">
         
         <h1>Selamat Datang, <?php echo $_SESSION['nama']; ?></h1>
         
+        <!-- TOMBOL NAVIGASI -->
         <p>
             <a href="form-pengaduan.php" class="btn btn-primary">+ Buat Laporan Baru</a> | 
+            <a href="ganti-password-siswa.php" class="btn btn-info">Ganti Password</a> | 
             <a href="logout.php" class="btn btn-danger">Logout</a>
         </p>
         
@@ -229,7 +229,6 @@ if (!isset($_SESSION['id']) || $_SESSION['role'] != 'siswa') {
                         "previous": "Sebelumnya"
                     }
                 },
-                // Menghilangkan fitur sorting default jika tidak diperlukan, atau biarkan default
                 "pageLength": 10
             });
         });

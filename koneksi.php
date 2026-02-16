@@ -1,6 +1,8 @@
 <?php
+//untuk menyambungkan codingan ke database
 $koneksi = mysqli_connect("localhost", "root", "", "ujikom_2026_ratum");
-
-if (!$koneksi) {
-    die("Koneksi gagal: " . mysqli_connect_error());
-}
+if (!$koneksi)
+    {
+        die("Koneksi Gagal!");
+    }
+?>

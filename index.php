@@ -1,81 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="style.css">
-
-    <style>
-        .login-container {
-    width: 400px;
-    margin: 80px auto;
-    padding: 30px 25px;
-    background: white;
-    border: 1px solid #c4c4c4;
-    }
-
-    /* 1. Mengatur agar body memenuhi layar dan kontennya di tengah */
-    body {
-        font-family: sans-serif; /* Font standar */
-        background-color: #AABFAC; /* Warna background luar abu-abu muda */
-        display: flex;            /* Mengaktifkan Flexbox */
-        justify-content: center;  /* Posisi Horizontal di Tengah */
-        align-items: center;      /* Posisi Vertikal di Tengah */
-        height: 100vh;            /* Tinggi layar penuh */
-        margin: 0;                /* Hilangkan margin default browser */
-    }
-
-        /* 2. Mengatur kotak login (wrap-barlog) */
-    .wrap-barlog {
-        background-color: white;       /* Warna putih untuk kotak */
-        padding: 40px;                /* Jarak dalam kotak */
-        border-radius: 10px;          /* Sudut melengkung */
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Efek bayangan agar elegan */
-        text-align: center;           /* Semua teks dan form di dalam kotak jadi tengah */
-        width: 300px;                 /* Lebar kotak tetap */
-    }
-
-        /* 3. Mengatur Input (Username & Password) */
-    input {
-        width: 90%;                   /* Lebar input mengikuti kotak */
-        padding: 10px;                /* Jarak teks dalam input */
-        margin-bottom: 15px;          /* Jarak bawah antar input */
-        border: 1px solid #ccc;       /* Garis pinggir abu-abu */
-        border-radius: 5px;           /* Sudut melengkung input */
-        box-sizing: border-box;       /* Agar padding tidak merusak lebar */
-        display: block;               /* Agar input turun ke bawah (blok) */
-        margin-left: auto;            /* Posisi input di tengah */
-        margin-right: auto;           /* Posisi input di tengah */
-    }
-
-        /* 4. Mengatur Tombol Login */
-    button {
-        width: 100%;                  /* Lebar tombol penuh */
-        padding: 10px;
-        background-color: #78887C   ;     /* Warna biru */
-        color: white;                 /* Teks putih */
-        border: none;                 /* Hilangkan garis pinggir tombol */
-        border-radius: 5px;
-        cursor: pointer;              /* Kursor berubah jadi tangan saat di-hover */
-        font-size: 16px;
-    }
-
-    </style>
 </head>
 <body>
-    
-    <div class="wrap-barlog">
-        <h1 style="font-size: 40px;">Login</h1>
-        <form action="proses-login.php" method="POST">
-            <!-- Hapus <br> jika menggunakan CSS display:block pada input, tapi tidak masalah jika dibiarkan -->
-            <input type="text" name="username" placeholder="Username" required>
-            
-            <input type="password" name="password" placeholder="Password" required>
-            
-            <button type="submit">Login</button>
-        </form>
-    </div>
+    <div class="wrap-login">
+        <h1 class="greet-welcome">Selamat Datang Di CareSapras</h1><br>
+        <div class="wrap-fomlog">
+            <h2 style="font-size: 40px;">Login</h2>
 
+            <form action="proses-login.php" method="POST">
+                <input type="text" name="username" placeholder="Username" required><br><br>
+
+                <input type="password" name="password" placeholder="Password" required><br><br>
+
+                <button type="submit" class="btn-login">Login</button>
+            </form>
+
+        </div>
+
+    </div>
 </body>
 </html>

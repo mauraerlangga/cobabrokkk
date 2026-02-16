@@ -2,29 +2,45 @@
 session_start();
 include 'koneksi.php';
 
- $username = $_POST['username'];
- $password = $_POST['password'];
+if(isset($_POST['username']) && isset($_POST['password'])){
 
-// Query ke tabel user
- $query = mysqli_query($koneksi, "SELECT * FROM user WHERE username = '$username' AND password = '$password'");
- $data = mysqli_fetch_assoc($query);
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-if($data) {
-    // Simpan data ke session
-    $_SESSION['id'] = $data['id']; 
-    $_SESSION['username'] = $data['username'];
-    $_SESSION['nama'] = $data['nama'];
-    $_SESSION['role'] = $data['role']; // Pastikan kolom 'role' ada di tabel user
+    $query = mysqli_query($koneksi, 
+        "SELECT * FROM user 
+         WHERE username='$username' 
+         AND password='$password'"
+    );
 
-    if($data['role'] == 'admin') {
-        // Arahkan ke halaman admin
-        header("Location: admin/data-pengaduan-admin.php");
-    } elseif($data['role'] == 'siswa') {
-        // Arahkan ke halaman siswa
-        header("Location: siswa.php");
+    $data = mysqli_fetch_assoc($query);
+
+    if($data){
+
+        // Simpan session
+        $_SESSION['id']       = $data['id'];
+        $_SESSION['username'] = $data['username'];
+        $_SESSION['nama']     = $data['nama'];
+        $_SESSION['role']     = $data['role'];
+
+        // Redirect sesuai role
+        if($data['role'] == 'admin'){
+            header("Location: admin/admin.php");
+            exit;
+        }
+
+        if($data['role'] == 'siswa'){
+            header("Location: data-pengaduan-siswa.php");
+            exit;
+        }
+
+    } else {
+        echo "Login gagal! Username atau password salah.";
+        echo "<br><a href='index.php'>Kembali</a>";
     }
+
 } else {
-    echo "Login gagal! Username atau password salah.";
-    echo "<br><a href='index.php'>Kembali</a>";
+    header("Location: index.php");
+    exit;
 }
 ?>

@@ -1,70 +1,86 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Data Pengaduan Admin</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<?php
+session_start();
 
-    <!-- DataTables CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css">
+if (!isset($_SESSION['id']) || $_SESSION['role'] != 'siswa') {
+    header("Location: index.php");
+    exit;
+}
+
+include 'koneksi.php';
+
+$id_user = $_SESSION['id'];
+
+$query = mysqli_query($koneksi, "
+SELECT `input-aspirasi`.*, kategori.ket_kategori 
+FROM `input-aspirasi`
+LEFT JOIN kategori 
+ON `input-aspirasi`.id_kategori = kategori.id_kategori
+WHERE `input-aspirasi`.iduser = '$id_user'
+");
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Pengaduan Siswa</title>
 
     <style>
+
         body{
             background-color: rgb(142, 177, 138);
             margin: 0;
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        .wrap-datmin{
+        .wrap-datsis{
             background-color: white;
             padding: 50px 80px;
             border-radius: 20px;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-            width: 100%;
-            max-width: 1100px;
         }
 
-        .wrap-datmin h1, h2{
+        .wrap-datsis h1, h2{
             color: rgb(48, 68, 46);
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.1);
         }
 
-        .btn-kategori{ 
-            text-decoration: none; 
-            background-color: rgb(48, 68, 46); 
-            color: white; 
-            padding: 6px 10px; 
-            border-radius: 5px; 
-        } 
-
-        .btn-siswa{ 
+        .btn-laporan{
             text-decoration: none;
-            background-color: rgb(160, 140, 50); 
-            color: white; 
-            padding: 6px 10px; 
-            border-radius: 5px; 
-        } 
-
-        .out{ 
-            text-decoration: none;
-            background-color: rgb(120, 50, 50);
+            background-color: rgb(48, 68, 46);
             color: white;
-            padding: 6px 10px; 
-            border-radius: 5px; 
-        } 
-
-        .btn-detail{ 
-            text-decoration: none; 
-            background-color: rgb(70, 75, 70); 
-            color: white; 
             padding: 6px 10px; 
             border-radius: 5px;
         }
 
-        /* STATUS BADGE */
+        .btn-ganpass{
+            text-decoration: none;
+            background-color: rgb(160, 140, 50);
+            color: white;
+            padding: 6px 10px; 
+            border-radius: 5px;
+        }
+
+        .out{
+            text-decoration: none;
+            background-color: rgb(120, 50, 50);
+            color: white;
+            padding: 6px 10px; 
+            border-radius: 5px;
+        }
+
+        .btn-detail{
+            text-decoration: none;
+            background-color: rgb(70, 75, 70);
+            color: white;
+            padding: 6px 10px; 
+            border-radius: 5px;
+        }
+
+        /* ===== STATUS BADGE ===== */
         .status{
             padding: 6px 14px;
             border-radius: 5px;
@@ -88,57 +104,37 @@
             color: rgb(48, 68, 46);
         }
 
-        table{
-            width: 100%;
-        }
     </style>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css">
 </head>
 
 <body>
 
-<?php
-session_start();
-
-if (!isset($_SESSION['id']) || $_SESSION['role'] != 'admin') {
-    header("Location: ../index.php");
-    exit;
-}
-
-include '../koneksi.php';
-
-$query = mysqli_query($koneksi, "
-SELECT `input-aspirasi`.*, kategori.ket_kategori 
-FROM `input-aspirasi`
-LEFT JOIN kategori 
-ON `input-aspirasi`.id_kategori = kategori.id_kategori
-ORDER BY tanggal_pelaporan DESC
-");
-?>
-
-<div class="wrap-datmin">
-    <h1 style="font-size: 40px;">Data Semua Pengaduan</h1>
+<div class="wrap-datsis">
+    <h1 style="font-size: 45px;">Data Pengaduan</h1>
     <hr>
-    <h2>Selamat Datang, Admin</h2>
+    <h2>Selamat Datang, <?php echo $_SESSION['nama']; ?></h2>
 
-    <a href="kategori.php" class="btn-kategori">+ Kategori</a> |
-    <a href="siswa.php" class="btn-siswa">+ Siswa</a> |
-    <a href="../logout.php" class="out">Logout</a>
+    <div class="wrap-btn">
+        <a class="btn-laporan" href="siswa.php">Buat Laporan</a> |
+        <a class="btn-ganpass" href="ganti-password.php">Ganti Password</a> |
+        <a class="out" href="logout.php">Logout</a> 
+    </div>
 
     <br><br>
 
-    <table id="datatable" border="1" cellpadding="10" cellspacing="0">
+    <table id="datatable" border="1" cellpadding="10" width="100%">
         <thead>
             <tr>
                 <th>No</th>
-                <th>Tanggal</th>
                 <th>Kategori</th>
                 <th>Lokasi</th>
-                <th>Keterangan</th> 
+                <th>Keterangan</th>
                 <th>Status</th>
                 <th>Aksi</th>
             </tr>
         </thead>
-
         <tbody>
             <?php
             $no = 1;
@@ -146,7 +142,6 @@ ORDER BY tanggal_pelaporan DESC
             ?>
             <tr>
                 <td><?= $no++; ?></td>
-                <td><?= date('d-m-Y H:i', strtotime($data['tanggal_pelaporan'])); ?></td>
                 <td><?= $data['ket_kategori']; ?></td>
                 <td><?= $data['lokasi']; ?></td>
                 <td><?= $data['keterangan']; ?></td>
@@ -169,7 +164,7 @@ ORDER BY tanggal_pelaporan DESC
                     ?>
                 </td>
                 <td>
-                    <a class="btn-detail" href="detail-laporan-admin.php?id=<?= $data['id_pelaporan']; ?>">
+                    <a class="btn-detail" href="detail-laporan-siswa.php?id=<?= $data['id_pelaporan']; ?>">
                         Detail
                     </a>
                 </td>
@@ -180,7 +175,7 @@ ORDER BY tanggal_pelaporan DESC
 </div>
 
 <!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
 <!-- DataTables -->
 <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
@@ -195,8 +190,7 @@ $(document).ready(function() {
             paginate: {
                 next: "Selanjutnya",
                 previous: "Sebelumnya"
-            },
-            emptyTable: "Tidak ada data"
+            }
         },
         pageLength: 5
     });

@@ -1,166 +1,33 @@
 <?php
 session_start();
-// Cek keamanan agar hanya admin yang bisa akses
-if (!isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
-    echo "Akses Ditolak. <a href='../index.php'>Login</a>";
-    exit;
-}
-
 include '../koneksi.php';
 
-// Ambil ID dari URL
- $id = $_GET['id'];
+$id = $_GET['id'];
+$data = mysqli_fetch_assoc(mysqli_query($koneksi,"SELECT * FROM kategori WHERE id_kategori='$id'"));
 
-// Ambil data kategori berdasarkan ID untuk ditampilkan di form
- $query_edit = mysqli_query($koneksi, "SELECT * FROM kategori WHERE id_kategori = '$id'");
- $data = mysqli_fetch_assoc($query_edit);
+if(isset($_POST['update'])){
+    $kategori = $_POST['kategori'];
+    mysqli_query($koneksi,"UPDATE kategori SET ket_kategori='$kategori' WHERE id_kategori='$id'");
+    header("Location: kategori.php");
+}
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Kategori</title>
-    <style>
-        /* 1. Global Styles & Background */
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #AABFAC; /* Hijau Sage Muted */
-            margin: 0;
-            padding: 40px 20px;
-            color: #333;
-        }
-
-        /* 2. Container Putih Utama */
-        .container {
-            max-width: 600px; /* Lebar pas untuk form */
-            margin: 0 auto;
-            padding: 40px;
-            background-color: #ffffff;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        /* 3. Tipografi */
-        h1 {
-            color: #4F6356; /* Sage Dark */
-            margin-top: 0;
-            border-bottom: 2px solid #E8F0EB;
-            padding-bottom: 15px;
-            margin-bottom: 25px;
-        }
-
-        /* 4. Link Kembali */
-        .back-link {
-            display: inline-block;
-            margin-bottom: 20px;
-            text-decoration: none;
-            color: #4F6356;
-            font-weight: 600;
-            font-size: 14px;
-        }
-        .back-link:hover { text-decoration: underline; }
-
-        /* 5. Form Styling */
-        .form-group { 
-            margin-bottom: 25px; 
-        }
-
-        label { 
-            display: block; 
-            margin-bottom: 8px; 
-            font-weight: bold; 
-            color: #4F6356; /* Sage untuk label */
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        input[type="text"] { 
-            width: 100%; 
-            padding: 12px; 
-            box-sizing: border-box;
-            border: 1px solid #D1D9D6; /* Border lembut */
-            border-radius: 8px; 
-            font-family: inherit;
-            font-size: 14px;
-            transition: border-color 0.3s;
-        }
-
-        input[type="text"]:focus {
-            outline: none;
-            border-color: #78887C; /* Sage Medium saat diklik */
-            box-shadow: 0 0 0 3px rgba(120, 136, 124, 0.1);
-        }
-
-        /* 6. Tombol */
-        .btn-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        button, a.btn {
-            padding: 12px 20px;
-            text-align: center;
-            border: none; 
-            border-radius: 8px; 
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-block;
-            flex: 1; /* Tombol sama lebar */
-            transition: opacity 0.3s;
-        }
-
-        button:hover, a.btn:hover { opacity: 0.9; }
-
-        /* Tombol Utama (Simpan) */
-        button[type="submit"] { 
-            background-color: #4F6356; /* Sage Dark */
-            color: white;
-        }
-
-        /* Tombol Kedua (Batal) */
-        .btn-cancel {
-            background-color: #8C8C8C; /* Abu-abu */
-            color: white;
-        }
-
-    </style>
+    <title>Document</title>
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-
-    <div class="container">
-        <!-- Link Kembali -->
-        <a href="data-kategori.php" class="back-link">&larr; Kembali ke Data Kategori</a>
-
-        <h1>Edit Data Kategori</h1>
-        
-        <!-- Form action menuju proses edit -->
-        <form action="proses-edit-kategori.php" method="POST">
-            
-            <!-- Hidden input untuk mengirim ID agar sistem tahu data mana yang diubah -->
-            <input type="hidden" name="id_kategori" value="<?= $data['id_kategori']; ?>">
-
-            <div class="form-group">
-                <label for="kategori">Nama Kategori</label>
-                <!-- Value diisi otomatis dari database -->
-                <input type="text" id="kategori" name="kategori" value="<?= $data['ket_kategori']; ?>" placeholder="Ubah nama kategori..." required>
-            </div>
-
-            <div class="btn-group">
-                <!-- Tombol Simpan -->
-                <button type="submit" name="update">Simpan Perubahan</button>
-                
-                <!-- Tombol Batal (Link) -->
-                <a href="data-kategori.php" class="btn-cancel">Batal</a>
-            </div>
-
+    <div class="wrap wrap-fomkat">
+        <h2 class="h2">Edit Kategori</h2><hr>
+        <form method="POST">
+            <input class="input" type="text" name="kategori" value="<?= $data['ket_kategori']; ?>" required><br><br>
+            <button class="btn btn-kirim" type="submit" name="update">Update</button><br>
+            <a class="btn btn-kembali" href="kategori.php">Kembali</a>
         </form>
     </div>
-
 </body>
 </html>
+

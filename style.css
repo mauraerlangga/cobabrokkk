@@ -1,57 +1,193 @@
-.login-container {
-    width: 400px;
-    margin: 80px auto;
-    padding: 30px 25px;
-    background: white;
-    border: 1px solid #c4c4c4;
+*{
+    box-sizing: border-box;
 }
 
-/* 1. Mengatur agar body memenuhi layar dan kontennya di tengah */
-body {
-    font-family: sans-serif; /* Font standar */
-    background-color: #AABFAC; /* Warna background luar abu-abu muda */
-    display: flex;            /* Mengaktifkan Flexbox */
-    justify-content: center;  /* Posisi Horizontal di Tengah */
-    align-items: center;      /* Posisi Vertikal di Tengah */
-    height: 100vh;            /* Tinggi layar penuh */
-    margin: 0;                /* Hilangkan margin default browser */
+/* all rounder */
+
+.wrap{
+    background-color: white;
+    padding: 50px 80px;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
 }
 
-    /* 2. Mengatur kotak login (wrap-barlog) */
-.wrap-barlog {
-    background-color: white;       /* Warna putih untuk kotak */
-    padding: 40px;                /* Jarak dalam kotak */
-    border-radius: 10px;          /* Sudut melengkung */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Efek bayangan agar elegan */
-    text-align: center;           /* Semua teks dan form di dalam kotak jadi tengah */
-    width: 300px;                 /* Lebar kotak tetap */
+body{
+    background-color: rgb(142, 177, 138);
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(48, 68, 46);
 }
 
-    /* 3. Mengatur Input (Username & Password) */
-input {
-    width: 90%;                   /* Lebar input mengikuti kotak */
-    padding: 10px;                /* Jarak teks dalam input */
-    margin-bottom: 15px;          /* Jarak bawah antar input */
-    border: 1px solid #ccc;       /* Garis pinggir abu-abu */
-    border-radius: 5px;           /* Sudut melengkung input */
-    box-sizing: border-box;       /* Agar padding tidak merusak lebar */
-    display: block;               /* Agar input turun ke bawah (blok) */
-    margin-left: auto;            /* Posisi input di tengah */
-    margin-right: auto;           /* Posisi input di tengah */
+.h1{
+    font-size: 40px;
 }
 
-    /* 4. Mengatur Tombol Login */
-button {
-    width: 100%;                  /* Lebar tombol penuh */
-    padding: 10px;
-    background-color: #4F6356   ;     /* Warna biru */
-    color: white;                 /* Teks putih */
-    border: none;                 /* Hilangkan garis pinggir tombol */
+.h2{
+    font-size: 38px;
+}
+
+.btn-action{
+    text-decoration: none; 
+    background-color: rgb(48, 68, 46); 
+    color: white; 
+    padding: 6px 10px; 
+    border-radius: 5px; 
+}
+
+.btn-edit{
+    text-decoration: none; 
+    background-color:rgb(160, 140, 50); 
+    color: white; 
+    padding: 6px 10px; 
+    border-radius: 5px; 
+}
+
+.btn-hapus{
+    text-decoration: none; 
+    background-color: rgb(120, 50, 50); 
+    color: white; 
+    padding: 6px 10px; 
     border-radius: 5px;
-    cursor: pointer;              /* Kursor berubah jadi tangan saat di-hover */
-    font-size: 16px;
 }
 
-button:hover {
-    background-color: #b2ceb3;     /* Warna biru lebih gelap saat disentuh */
+.input{
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid rgb(214, 214, 214);
+    box-shadow: 0 0px 5px rgba(0, 0, 0, 0.2);
 }
+
+/* bagian login */
+
+.greet-welcome{
+    color: rgb(48, 68, 46);
+    font-size: 60px;
+    margin-bottom: 30px;
+}
+
+.wrap-login{
+    text-align: center;
+}
+
+.wrap-login h1{
+    margin: 5px;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+
+.wrap-fomlog{
+    width: 100%;
+    max-width: 400px;
+    padding: 35px 30px; 
+    text-align: center;
+    border-radius: 20px;
+    background-color: white;
+    color: rgb(48, 68, 46);
+    margin: 0 auto;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.wrap-fomlog h2{
+    margin: 0;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+
+.wrap-fomlog input{
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 0px;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.btn-login{
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    background-color: rgb(48, 68, 46);
+    color: white;
+    cursor: pointer;
+}
+
+.wrap-fomlog button{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* bagian form laporan */
+
+.wrap-formlap{
+    background-color: white;
+    padding: 50px 80px;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.wrap-formlap h2{
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+.wrap-formlap input, select, textarea{
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid rgb(214, 214, 214);
+    box-shadow: 0 0px 5px rgba(0, 0, 0, 0.2);
+}   
+
+.btn{
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2)
+}
+
+.btn-kirim{
+    background-color: rgb(48, 68, 46);
+    border: none;
+}
+
+.btn-kembali{
+    background-color: rgb(90, 90, 90);
+}
+
+/* bagian ganti password */
+
+.wrap-gapass{
+    width: 100%;
+    max-width: 400px;
+    padding: 35px 30px; 
+    text-align: center;
+    border-radius: 20px;
+    background-color: white;
+    color: rgb(48, 68, 46);
+    margin: 0 auto;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.wrap-gapass input{
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid rgb(214, 214, 214);
+    box-shadow: 0 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+
